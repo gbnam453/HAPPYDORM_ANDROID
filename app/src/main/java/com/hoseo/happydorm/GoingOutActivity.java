@@ -28,18 +28,18 @@ public class GoingOutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_going_out);
 
-        //Set date (날짜 설정)
-        description = (TextView) findViewById(R.id.description);
+        // Set date (날짜 설정)
+        description = findViewById(R.id.description);
         description.setText(getTime());
 
-        //Webview load (웹 뷰 표시)
+        // WebView load (웹 뷰 표시)
         happydorm_webview = findViewById(R.id.happydorm_webview);
         happydorm_webview.setWebViewClient(new WebViewClientClass());
         happydorm_webview.getSettings().setJavaScriptEnabled(true);
         happydorm_webview.setVisibility(View.GONE);
         happydorm_webview.loadUrl(url);
 
-        //Go to main (메인화면으로 이동)
+        // Go to main (메인화면으로 이동)
         btn_home = findViewById(R.id.btn_home);
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,17 +50,21 @@ public class GoingOutActivity extends AppCompatActivity {
         });
     }
 
-    //Load date (날짜 불러오기)
-    private String getTime(){
+    // Load date (날짜 불러오기)
+    private String getTime() {
         mNow = System.currentTimeMillis();
         mDate = new Date(mNow);
         return mFormat.format(mDate);
     }
 
-    //Webview load (웹 뷰 표시)
+    // WebViewClient to handle URL redirection
     private class WebViewClientClass extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            if (url.equals("https://happydorm.hoseo.ac.kr/")) {
+                view.loadUrl("https://happydorm.hoseo.ac.kr/dormitory/view");
+                return true; // URL을 가로채서 변경
+            }
             view.loadUrl(url);
             return true;
         }
@@ -73,10 +77,10 @@ public class GoingOutActivity extends AppCompatActivity {
         }
     }
 
-    //Press to go back (한 번 눌러 뒤로가기)
+    // Press to go back (한 번 눌러 뒤로가기)
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             finish();
             overridePendingTransition(R.anim.none, R.anim.to_right_exit);
         }
