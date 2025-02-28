@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,6 +18,7 @@ import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,11 +40,25 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton btn_washer;
     private ImageView img_title;
     private Bitmap bitmap;
+    private TextView VersionName_description;
+
+    public String getVersionName(Context context){
+        String version_name = null;
+        try {
+            PackageInfo i = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            version_name = i.versionName;
+        } catch(PackageManager.NameNotFoundException e) { }
+        String version = version_name; // version을 여기서 할당
+        return version;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        VersionName_description = (TextView) findViewById(R.id.VersionName_description);
+        VersionName_description.setText(getVersionName(this));
 
         //Notification permission (알림 권한 요청)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU

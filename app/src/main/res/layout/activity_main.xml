@@ -125,13 +125,13 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/copyright"
+                android:id="@+id/VersionName_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:fontFamily="@font/public_sans_medium"
                 android:gravity="center"
-                android:text="Copyright 2024. Project.α all rights reserved."
+                android:text=""
                 android:textColor="#6A6A6A"
                 android:textSize="10dp" />
         </LinearLayout>

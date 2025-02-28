@@ -39,7 +39,7 @@ public class DevActivity extends AppCompatActivity {
         String version_name = null;
         try {
             PackageInfo i = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            version_name = "V" + i.versionName;
+            version_name = i.versionName;
         } catch(PackageManager.NameNotFoundException e) { }
         String version = version_name; // version을 여기서 할당
         return version;
