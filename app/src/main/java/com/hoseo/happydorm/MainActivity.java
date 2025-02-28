@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         String version_name = null;
         try {
             PackageInfo i = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            version_name = i.versionName;
+            version_name = i.versionName + " gbnam";
         } catch(PackageManager.NameNotFoundException e) { }
         String version = version_name; // version을 여기서 할당
         return version;
