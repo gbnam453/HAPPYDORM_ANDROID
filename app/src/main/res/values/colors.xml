@@ -4,4 +4,5 @@
     <color name="background">#F6F6F8</color>
     <color name="btn_background">#FFFFFF</color>
     <color name="text">#000000</color>
+    <color name="splash_background">#658DFB</color>
 </resources>
