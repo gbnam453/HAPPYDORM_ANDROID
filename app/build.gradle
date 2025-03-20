@@ -11,8 +11,8 @@ android {
         applicationId "project.alpha.happydorm"
         minSdk 24
         targetSdk 34
-        versionCode 250301171
-        versionName "1.7.1"
+        versionCode 250320174
+        versionName "1.7.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
