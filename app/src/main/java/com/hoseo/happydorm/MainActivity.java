@@ -30,6 +30,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import com.bumptech.glide.Glide;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQ_PERMISSION_PUSH = 1001;
@@ -64,35 +66,6 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
                 && PackageManager.PERMISSION_DENIED == ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS)) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, REQ_PERMISSION_PUSH);
-        }
-
-        //Title img function (대표 이미지 기능)
-        img_title = findViewById(R.id.img_title);
-        Thread uThread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL("http://gbnam.dothome.co.kr/happydorm/img_title.png");
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setDoInput(true);
-                    conn.connect();
-
-                    InputStream is = conn.getInputStream();
-                    bitmap = BitmapFactory.decodeStream(is);
-
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        uThread.start();
-        try {
-            uThread.join();
-            img_title.setImageBitmap(bitmap);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
 
         //Notice function (공지사항 기능)

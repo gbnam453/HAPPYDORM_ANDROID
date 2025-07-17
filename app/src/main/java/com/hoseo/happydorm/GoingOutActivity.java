@@ -21,7 +21,7 @@ public class GoingOutActivity extends AppCompatActivity {
     long mNow;
     Date mDate;
     SimpleDateFormat mFormat = new SimpleDateFormat("MM/dd (E)");
-    private String url = "http://gbnam.dothome.co.kr/happydorm/goingout.html";
+    private String url = "http://gbnam453.dothome.co.kr/happydorm/goingout_redirect.html";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

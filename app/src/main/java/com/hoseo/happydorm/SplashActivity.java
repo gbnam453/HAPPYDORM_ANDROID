@@ -24,6 +24,6 @@ public class SplashActivity extends Activity {
             Intent intent = new Intent(SplashActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
-        }, 1500); // 5초 후 메인으로 이동
+        }, 1500);
     }
 }

@@ -5,14 +5,14 @@ plugins {
 
 android {
     namespace 'com.hoseo.happydorm'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "project.alpha.happydorm"
         minSdk 24
-        targetSdk 34
-        versionCode 250320174
-        versionName "1.7.4"
+        targetSdk 35
+        versionCode 250409182
+        versionName "1.8.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -8,17 +8,24 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class NoticeActivity extends AppCompatActivity {
 
     private Button btn_hidden;
     private ImageButton btn_home;
+    private TextView description;
     private WebView happydorm_webview;
-    private String url = "http://gbnam.dothome.co.kr/happydorm/notice.html";
     private int count;
-
+    long mNow;
+    Date mDate;
+    SimpleDateFormat mFormat = new SimpleDateFormat("MM/dd (E)");
+    private String url = "http://gbnam453.dothome.co.kr/happydorm/point_redirect.html";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +48,18 @@ public class NoticeActivity extends AppCompatActivity {
             }
         });
 
-        //Go to main (메인화면으로 이동)
+        // Set date (날짜 설정)
+        description = findViewById(R.id.description);
+        description.setText(getTime());
+
+        // WebView load (웹 뷰 표시)
+        happydorm_webview = findViewById(R.id.happydorm_webview);
+        happydorm_webview.setWebViewClient(new WebViewClientClass());
+        happydorm_webview.getSettings().setJavaScriptEnabled(true);
+        happydorm_webview.setVisibility(View.GONE);
+        happydorm_webview.loadUrl(url);
+
+        // Go to main (메인화면으로 이동)
         btn_home = findViewById(R.id.btn_home);
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,19 +68,23 @@ public class NoticeActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.none, R.anim.to_right_exit);
             }
         });
-
-        //Webview load (웹 뷰 표시)
-        happydorm_webview = findViewById(R.id.happydorm_webview);
-        happydorm_webview.setWebViewClient(new WebViewClientClass());
-        happydorm_webview.getSettings().setJavaScriptEnabled(true);
-        happydorm_webview.setVisibility(View.GONE);
-        happydorm_webview.loadUrl(url);
     }
 
-    //Webview load (웹 뷰 표시)
+    // Load date (날짜 불러오기)
+    private String getTime() {
+        mNow = System.currentTimeMillis();
+        mDate = new Date(mNow);
+        return mFormat.format(mDate);
+    }
+
+    // WebViewClient to handle URL redirection
     private class WebViewClientClass extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            if (url.equals("https://happydorm.hoseo.ac.kr/")) {
+                view.loadUrl("https://happydorm.hoseo.ac.kr/mypage/rnp_points/list");
+                return true; // URL을 가로채서 변경
+            }
             view.loadUrl(url);
             return true;
         }
@@ -75,25 +97,13 @@ public class NoticeActivity extends AppCompatActivity {
         }
     }
 
-    //Press to go back (한 번 눌러 뒤로가기)
+    // Press to go back (한 번 눌러 뒤로가기)
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (happydorm_webview.canGoBack()) {
-                String currentUrl = happydorm_webview.getUrl();
-                if (currentUrl != null && currentUrl.equals("https://happydorm.hoseo.ac.kr/board/notice/list")) {
-                    finish();
-                    overridePendingTransition(R.anim.none, R.anim.to_right_exit);
-                } else {
-                    happydorm_webview.goBack();
-                }
-            } else {
-                finish();
-                overridePendingTransition(R.anim.none, R.anim.to_right_exit);
-            }
-            return true;
+            finish();
+            overridePendingTransition(R.anim.none, R.anim.to_right_exit);
         }
         return super.onKeyDown(keyCode, event);
     }
-
 }
